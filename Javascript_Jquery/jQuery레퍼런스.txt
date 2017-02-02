@@ -1,0 +1,2062 @@
+﻿jquery의 가장 중요한 구성요소인 css 선택자.
+모든 브라우저에서 동작
+Content Delivery Network
+
+zipping = 소스코드 다 붙여서 클라에게 제공할 웹 페이지 용량을 줄임
+
+jQuery의 목표
+1.문서객체모델dom과 관련된 처리
+2.이벤트연결
+3.시각적효과
+4.ajax앱 개발
+
+
+
+고전 이벤트 모델은 한번에 하나의 이벤트연결만 가능 but jquery는 여러개 가능
+$(document).ready(function(){
+	alert("123");
+});	
+$(document).ready(function(){
+	alert("456");
+});	
+$(document).ready(function(){
+	alert("789");
+});	
+
+
+
+
+
+$(document).ready(function(){
+	alert("123");
+});	
+의 간단 버젼
+$(function(){
+	alert("123");
+});
+
+
+
+
+
+css선택자
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('h1,p').css("color","red");//두개의 요소 선택
+				$('#target').css("color","blue");
+				$('h1.temp').css("color","green");
+				$('.play.game').css("color",'pink');
+				$('*').css("color",'yellow'); //html태그, body태그에도 적용
+			});	
+		</script>
+	</head>	
+	<body>
+		<h1 id = "target">Lorem ipsum</h1>	
+		<p class = "game">Lorem ipsum dolor sit amet.</p>
+		<h1 class = "temp">Lorem ipsum</h1>
+		<p class = "play game">consectetur adipiscing elit.</p>
+	</body>
+</html>
+
+
+
+
+
+
+
+//자손 선택자, 후손 선택자
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('body *').css('color','blue');  //후손 모두
+				$('body > *').css('color','red'); //자식만	
+				$('input[type = "text"]').val("Hello jQuery..!");
+			});
+		</script>
+	</head>
+	
+	<body>
+		<div>
+			<div>
+				<ul>
+					<li>Apple</li>
+					<li>Bag</li>
+					<li>Cat</li>
+					<li>Dog</li>
+					<li>Elephant</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+		
+		<input type = "text"/>
+		<input type = "password"/>
+		<input type = "radio"/>
+		<input type = "checkbox"/>
+		<input type = "file"/>
+	</body>	
+</html>
+380p Au°i~~~
+
+
+
+
+
+
+
+
+
+
+
+//필터 선택자
+//속성 선택자보다 더 간단하게 사용하고 싶을 때
+//중요!
+//함수필터선택자
+//요소:contains(문자열) //포함하는지
+//:eq(n) //n번째 위치하는 문서객체 선택
+//:gt(n) //n번째 초과에 위치하는 문서객체 선택
+//:has(h1) //h1태그가 있는 문서 객체 선택
+//:lt(n) //n번째 미만 선택
+//:not(선택자) //선택자와 불일치 객체 선택
+//:nth-child(3n+1) //3n+1번째 객체 선택
+//배열
+<!doctype html>
+<html>
+	<head>
+		<style>
+			.high-light-0{ background : yellow; }
+			.high-light-1{ background : orange; }
+			.high-light-2{ background : blue; }
+			.high-light-3{ background : green; }
+			.high-light-4{ background : red; }
+		</style>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>	
+		
+			$(document).ready(function(){
+				setTimeout(function(){
+					var value = $('select > option:selected');//5초가 지난 후 선택된 것 출력, 중요 외울것
+					//alert(value.val());
+				},5000);
+				
+				
+				//$('tr:odd').css('background',"#F9F9F9");
+				//$('tr:even').css('background',"#9F9F9F");
+				//$('tr:first').css('background',"#000000").css('color',"#FFFFFF");
+				
+				
+				$('tr:eq(0)').css('background',"#000000").css('color',"white");
+				$('td:nth-child(3n+1)').css('background',"#565656");
+				$('td:nth-child(3n+2)').css('background',"#A9A9A9");
+				$('td:nth-child(3n)').css('background',"#F9F9F9");
+				
+				
+				
+				
+				
+				//js의 배열
+				var array = [
+					{ name : "Hanbit Media", link : "http://hanb.co.kr"},
+					{ name : "Naver", link : "http://naver.com"},
+					{ name : "Daum", link : "http://daum.net"},
+					{ name : "Paran", link : "http://paran.com"}
+				];				
+				$.each(array,function(index,item){ //ajax에서 많이 사용 foreach와는 매개변수의 순서가 다르다.
+					var output = "";
+					output += "<a href = '"+item.link+"' target = '_blank'>";
+					output += "		<h1>"+item.name+"</h1>";
+					output += "</a>";
+					document.body.innerHTML += output;
+				});
+					
+
+
+
+					
+				//$('h1').addClass("high-light");
+				/*dom의 배열
+				$('h1').each(function(index,item){
+					//$(item).addClass("high-light-"+index);
+					$(this).addClass('high-light-'+index);//item보단 this 많이 사용.사실 둘은 같은 의미다.
+				});
+				*/
+				/*
+				$('h1').each(function(index,item){
+					//$(item).addClass("high-light-"+index);
+					$(this).addClass('high-light-'+(4-index));
+				});
+				*/
+				/*
+				$('h1').addClass(function(index){
+					return "high-light-"+(4-index);
+				});
+				*/
+				
+			});
+		</script>
+	</head>
+	
+	<body>
+		<select>
+			<option>Apple</option>
+			<option>Bag</option>
+			<option>Cat</option>
+			<option>Dog</option>
+			<option>Elephant</option>
+		</select>
+		
+		
+		<br/><br/><br/>
+		<table>
+			<tr>
+				<th>AI¸§</th>
+				<th>C÷¾×Cu</th>
+				<th>Ao¿ª</th>
+			</tr>
+			
+			<tr>
+				<td>°¡</th>
+				<td>A</th>
+				<td>¼UÆA</td>
+			</tr>
+			
+			<tr>
+				<td>³ª</td>
+				<td>B</td>
+				<td>±¤Aø</td>
+			</tr>
+			
+			<tr>
+				<td>´U</td>
+				<td>O</td>
+				<td>°­³²</td>
+			</tr>
+			
+			<tr>
+				<td>¶o</td>
+				<td>AB</td>
+				<td>°­ºI</td>
+			</tr>
+			
+			
+		</table>
+		
+		<h1>item - 0</h1>
+		<h1>item - 1</h1>
+		<h1>item - 2</h1>
+		<h1>item - 3</h1>
+		<h1>item - 4</h1>
+	</body>
+</html>
+
+
+
+
+
+//객체 생성 {}
+//배열 생성 []
+
+
+
+
+
+<script src = "jquery-3.1.0.js"></script>
+<script>
+	$(document).ready(function(){	
+		var object = {};
+		object.name = "RintIanTta";
+		object.gender = "Male";
+		object.part = "Second Guitar";	//귀찮아서 extend 등장
+		
+		
+		var obj = { name : "A±AI¼º"};			
+		$.extend(obj,{//붙인다.
+			region : "¼­¿i",
+			part : "±aA¸"
+		});
+		
+		
+		
+		var output = "";
+		$.each(obj,function(index,item){
+			output += index + " : " + item + "\n";
+		});
+		alert(output);
+	});
+	
+	
+</script>
+
+
+
+
+
+
+
+
+
+//다른 프레임워크에서 $ 사용할 수 있다,충돌.
+<script src = "jquery-3.1.0.js"></script>
+<script>
+	$.noConflict();//충돌방지메서드
+	var J = jQuery;//jQuery를 그대로 사용해도 된다.
+	J(document).ready(function(){
+		alert("123");
+	});
+</script>
+
+
+
+
+대부분의 문서객체를 선택할 수 있지만
+선택할 수 없는 경우가 발생한다면, filter 함수를 사용
+체이닝을 사용해 간결한 코드를 만들 수 있다.
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('h3').filter(function(index){ //함수 적용 가능
+					return index%3==0;
+				}).css({
+					backgroundColor:'black',
+					color:'white'
+				});
+			});
+		</script>
+	</head>
+	
+	<body>
+		<h3>Header-0</h3>
+		<h3>Header-1</h3>
+		<h3>Header-2</h3>
+		<h3>Header-3</h3>
+		<h3>Header-4</h3>
+		<h3>Header-5</h3>
+	</body>
+</html>
+
+
+
+
+
+
+
+//end를 통해 filter를 잠깐 지운다.
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				//$('h1').css('background','orange').filter(':even').css('color','red');
+				
+				$('h1').css('background','orange').filter(':even').css('color','white').end().
+				filter(':odd').css('color','red');
+			});
+		</script>
+	</head>
+	<body>
+		<h1>Header-0</h1>
+		<h1>Header-1</h1>
+		<h1>Header-2</h1>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+//eq , first , last
+//n 번째의 dom 선택
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('h1').eq(0).css('background','orange');
+				$('h1').eq(-1).css('background','red');
+			});
+		</script>
+	</head>
+	
+	<body>
+		<div>
+			<h1>Header-0</h1>
+			<h1>Header-1</h1>
+			<h1>Header-2</h1>
+		</div>
+	</body>
+
+
+</html>
+
+
+
+
+
+
+
+
+//end와 비슷하게(?), 문서객체를 추가해준다.
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$(document).ready(function(){
+					$('h1').css('background','gray').add('h2').css('float','left');
+				});
+			});
+		</script>
+	</head>
+	
+	<body>
+		<div>
+			<h1>Header-0</h1>
+			<h2>Header-1</h2>
+			<h1>Header-2</h1>
+			<h2>Header-3</h2>
+			<h1>Header-4</h1>
+		</div>
+	</body>
+
+
+</html>
+
+
+
+
+//is 는 if와 비슷
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('h1').each(function(){
+					if($(this).is('.select')){
+						$(this).css('background','orange');
+					}
+				});
+			});
+		</script>
+	</head>
+	
+	
+	<body>
+		<h1 class = "select">Header-0</h1>
+		<h1>Header-1</h1>
+		<h1 class = "select">Header-2</h1>
+	</body>
+
+
+</html>
+
+
+
+
+
+//find매서드는 xml 에서 많이 사용
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			var xml = "";
+			xml += "<friends>";
+			xml += "	<friend>";
+			xml += "		<name>a</name>";
+			xml += "		<language>aa</language>";
+			xml += "	</friend>";
+			xml += "	<friend>";
+			xml += "		<name>b</name>";
+			xml += "		<language>bb</language>";
+			xml += "	</friend>";
+			xml += "	<friend>";
+			xml += "		<name>C</name>";
+			xml += "		<language>cc</language>";
+			xml += "	</friend>";
+			xml += "</friends>";
+		
+			$(document).ready(function(){
+				var xmlDoc = $.parseXML(xml);
+				$(xmlDoc).find("friend").each(function(index){ //영어나 한글처럼 붙는다.
+					var output = "";
+					output += "<div>";
+					output += "		<h1>" + $(this).find("name").text() + "</h1>";
+					output += "		<p>" + $(this).find("language").text() + "</p>";
+					output += "</div>";
+					document.body.innerHTML += output;
+					document.write(output);
+				});
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+//jquery 본격적 dom 문서객체 조작
+//addClass
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				//$('h1').addClass('item');
+				$('h1').addClass(function(index){  //규칙적인 클래스들을 적용
+					return 'class' + index;
+				});
+				$('h2').removeClass('select');
+				
+				
+				//toggleClass()도 있다.
+				//매개변수의 클래스가 있으면 제거, 없으면 추가
+			});
+		</script>
+	</head>
+	<body>
+		<h1>Header-0</h1>
+		<h1>Header-1</h1>
+		<h1>Header-2</h1>
+		<h2 class = "item">Header-3</h2>
+		<h2 class = "item select">Header-4</h2>
+		<h2 class = "item">Header-5</h2>
+	</body>
+</html>
+
+
+
+
+
+
+//dom의 속성과 관련된 모든 기능 처리 = attr
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				var src = $('img').attr('src');//첫 번째 태그 가져옴
+				alert(src);
+
+				$('img').attr('width',200);//addClass와 비슷
+
+				$('img').attr('width',function(index){
+					return (index+1) * 100;
+				});
+
+				$('img').attr({
+					width : function(index){
+						return (index+1)*100;
+					},
+					height : 100
+				});
+				
+				//다른 함수들도 대부분 위처럼 get 1개, set 3개 의 구성으로 돼있다.
+			});
+		</script>
+	</head>
+	<body>
+		<img src = "Park.jpg"/>
+		<img src = "Ha.jpg"/>
+		<img src = "Penguins.jpg"/>
+	</body>
+</html>
+
+
+
+
+//removeAttr과 removeClass 모두 클래스 속성 제거 가능
+//Attr은 모든 속성 제거
+//Class는 선택 제거
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('h1').removeAttr('data-index');
+			});
+		</script>
+	</head>
+	<body>
+		<h1 data-index = "0">Header-0</h1>
+		<h1 data-index = "1">Header-1</h1>
+		<h1 data-index = "2">Header-2</h1>
+	</body>
+
+</html>
+
+
+
+
+//src같은 속성들 말고, css에 관한것은
+//모두 css()가 처리
+<!doctype html>
+<html>
+	<head>
+		<style>
+			.first { color:red; }
+			.second { color : pink; }
+			.third { color : orange; }
+		</style>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('h1').css('color','blue');
+				
+				var color = ["orange","red","pink"];
+				$('h1').css('color',function(index){
+					return color[index];
+				});
+
+				color = ["red","white","purple"];
+				$('h1').css({
+					color : function(index){
+						return color[index];
+					},
+					backgroundColor : "black"//background-color 가능
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<h1 class = "first">Header-0</h1>
+		<h1 class = "second">Header-1</h1>
+		<h1 class = "third">Header-2</h1>
+	</body>
+</html>
+
+
+
+
+
+
+//src와 같은 속성, css 제외하고
+//dom의 내부 검사는 html()과 text()로 한다
+//html - 태그 인식 o
+//text - 태그 인식 x
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				var html = $('h1').html();
+				alert(html); //첫번째 h1만 가져온다
+				var text = $('h1').text();
+				alert(text); //다 가져온다
+			});
+		</script>
+	</head>
+	<body>
+		<h1>Header-0</h1>
+		<h1>Header-1</h1>
+		<h1>Header-2</h1>
+	</body>
+</html>
+
+
+
+
+
+
+//따라서 내부 텍스트를 추가할 때는 html()또는 text()를 활용
+//attr css html text 모두 사용방법 비슷하다.
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('div').html("<h1>$().html() Method</h1>");
+				$('p').text("<h1>$().text() Method</h1>");
+				alert("line");
+				
+				$('div').html(function(index){
+					return "<h1>Header-"+index+"</h1>";
+				});
+				
+				$('h1').html(function(index,html){//두번째 매개변수로 원래의 내용 가져옴
+					return "*" + html +"*";
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<p></p>
+		<p></p>
+		<p></p>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+//dom 제거할 땐, remove() 와 empty() 사용
+//remove - 객체 제거
+//empty - 내부 제거(내부 전체인지..?)
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('h1').first().remove();
+				$('div').empty();
+			});
+		</script>
+	</head>
+	<body>
+		<div>
+			<h1>Header-0</h1>
+			<h1>Header-1</h1>
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+//dom 문서객체는 크게 텍스트o/텍스트x 로 나눌 수 있다.
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('<h1></h1>').html("Hello World1").appendTo('body');
+				$('<h1>Hello World2</h1>').appendTo('body');
+				//텍스트 o 2가지 방법
+				
+				
+				//텍스트 x 3가지 방법
+				$('<img src = "Park.jpg"/>').appendTo('body');
+				$('<img />').attr('src','Park.jpg').appendTo('body');
+				$('<img />').attr({
+					src :"Park.jpg",
+					width : 350,
+					height : 250
+				}).appendTo('body');
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+//dom 문서 객체 생성 후 삽입 8가지
+//$('A').appendTo(B)    A를
+//$('A').prependTo(B)   
+//$('A').insertAfter(B)
+//$('A').insertBefore(B)
+
+//$('A').append(B)    B를
+//$('A').prepend(B)   
+//$('A').After(B)
+//$('A').Before(B)
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				var h1 = "<h1>Header1</h1>";
+				var h2 = "<h1>Header2</h1>";
+				$('body').append(h1,h2,h1,h2);
+
+				var content = [
+					{ name : "a" , region : "A" },
+					{ name : "b" , region : "B"},
+					{ name : "c" , region : "C"}
+				];
+				$('div').append(function(index){
+					var item = content[index];
+					var output = "";
+					output += "<h1>" + item.name + "</h1>";
+					output += "<h2>" + item.region + "</h2>";
+					return output;
+				});
+			});                //html()로도 만들 수 있다.
+		</script>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+	</body>
+</html>
+
+
+
+
+
+//이미지 이동
+<!doctype html>
+<html>
+	<head>
+		<script src = "jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('img').css({
+					width : 250
+				});
+
+				setInterval(function(){
+					$('img').first().appendTo('body');
+				},1000);
+			});
+		</script>
+	</head>
+	<body>
+		<img src = "Park.jpg"/>
+		<img src = "Penguins.jpg"/>
+		<img src = "Ha.jpg"/>
+	</body>
+</html>
+
+
+
+
+//first와 appendTo를 이용해 dom 문서 객체 이동
+//append를 이용해 dom문서 객체 이동
+//clone 사용
+<script>
+	$(document).ready(function(){
+		$('div').append($('h1'));
+		$('div').append($('h1').clone());
+	});
+</script>
+
+
+
+
+
+
+//jquery event
+//js의 모든 이벤트 구현
+//on을 통한 이벤트 연결
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<style type="text/css">
+			.reverse{
+				background: black;
+				color:white;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>test1</h1>
+		<h1>test2</h1>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('h1').on('click',function(){
+				$(this).html(function(index,html){
+					return html + "!!";
+				});
+			});
+
+			$('h1').on({
+				mouseenter:function(){
+					$(this).addClass('reverse');
+				},
+				mouseleave:function(){
+					$(this).removeClass('reverse');
+				}
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+//굳이 on 말고, 많이 사용 하는 이벤트를 간단하게 연결할 수 있다.
+//blur 
+//focus, focusin, focusout
+//load, unload
+//resize
+//scroll
+//click, dblclick
+//mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, hover(enter + leave)
+//change
+//select
+//submit
+//keydown, keypress, keyup
+//error
+//ready
+//$('h1').click(function(){});
+
+
+
+
+//hover
+//on보단 아래같은 간단한 형태를 더 사용한다.
+//on은 체이닝하거나 간단한 방법이 불가할 경우 사용(사용자 정의 이벤트,터치 이벤트)
+$(document).ready(function(){
+	$('h1').hover(
+		function () {
+			$(this).addClass('reverse');
+		},
+		function(){
+			$(this).removeClass('reverse');
+		}
+	);
+});
+
+
+
+
+
+
+//이벤트 제거 = off
+//on과 off를 이용하면 한번만 실행하는 이벤트를 쉽게 작성 가능	
+//off()
+//off(eventName)
+//off(eventName,function)
+$(document).ready(function(){
+	$('h1').click(function(){
+		$(this).html('click');
+		alert('event occured');
+		$(this).off();
+	});
+});
+
+
+
+
+
+//그러나 on + off를 one()으로 쉽게 해결 가능
+//on과 사용방법 같다.
+$(document).ready(function(){
+	$('h1').one('click',function(){
+		$(this).html(function(index,html){
+			return html + "!!";
+		});
+	});
+});
+
+
+
+
+
+
+
+
+
+//매개변수 context
+//jquery메서드는 사실 매개변수 2개 가능(selector,context)
+//단순히 $('h1')로는 아래 코드 작성 불가, jquery 플러그인을 만들 때 자주 사용
+//context는 selector가 적용하는 범위 한정.(이벤트와 함께 사용,이벤트 발생 객체로 한정)
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<style type="text/css">
+			*{ margin:0px; padding: 0px; }
+			div{
+				margin: 5px;
+				padding: 5px;
+				border: 3px solid black;
+				border-radius: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>Header 1</h1>
+			<p>Paragraph</p>
+		</div>
+		<div>
+			<h1>Header 2</h1>
+			<p>Paragraph</p>
+		</div>
+		<div>
+			<h1>Header 3</h1>
+			<p>Paragraph</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('div').click(function(){
+				var header = $('h1',this).text();
+				var paragraph = $('p',this).text();
+				
+				//혹은
+				
+				
+				var header = $(this).find('h1').text();
+				var paragraph = $(this).find('p').text();
+				
+				
+				alert(header + " " + paragraph);
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+
+//모든 이벤트 리스너는 이벤트 객체가 있다.
+//기존 js 이벤트 객체는 브라우저마다 사용방법과 이벤트 객체에 있는 속성도 다르다.
+//그러나 jquery는 같다.
+//자주 사용하는 jquery이벤트 객체
+//event.pageX
+//event.pagey
+//event.preventDefault() 기본 이벤트 제거
+//event.stopPropagation() 이벤트 전달 제거
+//익스8 이하도 excanvas.js를 사용하면 canvas 사용 가능
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas" width="700" height="400" 
+				style="border:3px solid black">
+			
+		</canvas>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+
+			$(canvas).on({
+				mousedown:function(event){
+					var position = $(this).offset();
+					var x = event.pageX - position.left;
+					var y = event.pageY - position.top;
+
+					context.beginPath();
+					context.moveTo(x,y);
+				},
+				mouseup:function(event){
+					var position = $(this).offset();
+					var x = event.pageX - position.left;
+					var y = event.pageY - position.top;
+
+					context.lineTo(x,y);
+					context.stroke();
+				}
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+
+
+//강제 이벤트 발생 = trigger()
+//trigger(eventName)
+//trigger(eventName,data)
+//data는 보통 배열
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<h1>Start : </h1>
+		<h1>Start : </h1>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('h1').click(function(){
+				$(this).html(function(index,html){
+					return html + "!";
+				});
+			});
+
+			$('h1').click(function(event,data1,data2){
+				alert(data1 + " : " + data2);
+			});
+
+			setInterval(function(){
+				$('h1').last().trigger('click');
+				$('h1').first().click();
+			},1000);
+
+			$('h1').eq(1).trigger('click',[273,52]);
+		});
+	</script>
+</html>
+
+
+
+
+
+
+//preventDefault() -> 기본 이벤트 제거
+//stopPropagation() -> 이벤트 전달 제거
+//a 클릭 -> h1 클릭으로 이벤트 전달된다. 원래는!
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<style type="text/css">
+			*{
+				margin:5px;
+				padding: 5px;
+				border:3px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>
+			<a href="http://naver.com">naver</a>
+		</h1>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('a').click(function(event){
+				$(this).css('background-color','blue');
+				//event.preventDefault();
+				//event.stopPropagation();
+
+				//or
+
+				//return false;
+			});
+			$('h1').click(function(event){
+				$(this).css('background-color','red');
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+//on method는 selector 매개변수로 이벤트 범위를 한정할 수 있다. = delegate 방식.
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<div id = "wrap">
+			<h1>
+				Header
+			</h1>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			/*
+			$('h1').on('click',function(){
+				var length = $('h1').length;
+				var targetHTML = $(this).html();
+				$('#wrap').append('<h1>'+length+'-'+targetHTML+'</h1>');		
+				//No event in new h1 tag!!
+			});
+			*/
+			$('#wrap').on('click','h1',function(){
+				var length = $('h1').length;
+				var targetHTML = $(this).html();
+				$('#wrap').append('<h1>'+length+'-'+targetHTML+'</h1>');	
+				//Intended event in new h1 tag!
+
+				//$('#wrap').off('click','h1');
+				//remove event
+			});
+		});
+
+
+
+	</script>
+</html>
+
+
+
+
+
+상위 개념이 애매할 땐,
+$(document).ready(function(){
+	$(document).on('click','h1',function(){});
+});
+
+
+
+
+
+
+//mouseover는 이벤트 버블링 적용되어 내부의 div태그 안에 들어가도 이벤트 발생
+//mouseenter는 문서 객체의 안에 있는지 외부에 있는지 확인
+//over는 잘 사용 안함
+//enter만 많이 쓴다.
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<style type="text/css">
+			.outer{
+				width: 200px;
+				height: 200px;
+				background: orange;
+				padding:50px;
+				margin:10px;
+			}
+			.inner{
+				width:100%;
+				height:100%;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="inner"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.outer').mouseover(function(){
+				$('body').append('<h1>MOUSEOVER</h1>');
+			}).mouseenter(function(){
+				$('body').append('<h1>MOUSEENTER</h1>');
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+//키보드 이벤트
+//keydown 누를 때 발생
+//keypress 입력될 때 발생
+//keyup 뗄 때 발생
+//keypress는 한글 인식 x 따라서 keyup사용
+//이벤트 발생 순서 = down -> press -> up
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<div>
+			<p>My thinking</p>
+			<h1>150</h1>
+			<textarea cols="70" rows="5">
+				
+			</textarea>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(event){
+			$('textarea').keyup(function(){
+				var inputLength = $(this).val().length;
+				var remain = 150 - inputLength;
+				$('h1').html(remain);
+
+				if(remain >= 0) $('h1').css('color','black');
+				else $('h1').css('color','red');
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+//window 이벤트는 window, document, img 등 많은 태그에서 사용 가능
+//ready 준비되면 load 로드할 때 unload 닫을 때 
+//resize 크기변할 때 scroll 스크롤할 때 error 에러있을 때
+//scroll로 페북 이벤트 작성 가능(무한 스크롤)
+
+//마우스 스크롤 움직이면 무조건 scroll이벤트 발생
+//$(window).height() 에서 문제발생....
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			
+			$(window).scroll(function(){
+
+				var scrollHeight = $(window).scrollTop() + $(window).height();
+				var documentHeight = $(document).height();
+
+				console.log($(window).height() + " " + $(document).height());
+				//$(window).height()???????????????????????????????
+				if(scrollHeight == documentHeight){
+					for(var i=0;i<10;i++)
+						$('<h1>Scroll nn</h1>').appendTo('body');
+				}
+				
+			});
+			for(var i=0;i<20;i++)
+				$('<h1>Scroll</h1>').appendTo('body');
+		});
+	</script>
+</html>
+
+
+
+
+
+
+
+
+//입력 양식 이벤트
+//change 변경
+//focus 초점
+//focusin 맞춰지기 바로 전
+//focusout 사라지기 바로 전
+//blur 초점이 사라지면
+//select 선택하면
+//submit submit 버튼 누르면
+//reset 리셋 누르면
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+	</head>
+	<body>
+		<form id="myForm">
+			<table>
+				<tr>
+					<td>
+						name : 
+					</td>
+					<td>
+						<input type="text" name="name" id="name"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						password : 
+					</td>
+					<td>
+						<input type="password" name="password" id = "password"/>
+					</td>
+				</tr>
+			</table>
+			<input type="submit" value="submit"/>
+		</form>
+
+
+		<input type="checkbox" id="all-check"/>
+		<label>All</label>
+		<div id="check-item">
+			<input type="checkbox"/>
+			<label>A</label>
+			<input type="checkbox"/>
+			<label>B</label>
+			<input type="checkbox"/>
+			<label>C</label>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#myForm').submit(function(event){
+				var name = $('#name').val();
+				var password = $('#password').val();
+				alert(name + " " + password);
+				event.preventDefault();
+			});
+
+
+			$('#all-check').change(function(){
+				if(this.checked) $('#check-item').children().prop('checked',true);
+				else $('#check-item').children().prop('checked',false);
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+//jquery로 시각효과 구현 가능
+//show, hide, toggle(show + hide)
+//slideDown, slideUp, slideToggle
+//fadein, fadeout, fadeToggle
+//활용방법 4가지
+//$('h1').method();
+//$('h1').method(speed);
+//$('h1').method(speed,callback);
+//$('h1').method(speed,easing,callback);
+$(document).ready(function(){
+	$('button').click(function(){
+		//$('.page').toggle('slow');
+		//$('.page').slideToggle('slow');
+		//$('.page').fadeToggle('slow');
+	});
+});
+
+
+
+
+
+//innerfade플러그인은 ul 태그에 사용
+//li 자동 전환
+//입력 해도 되고 안해도 되는 객체 = 옵션객체
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			ul{
+				list-style:none;
+			}
+			img{
+				width: 500px;
+				height: 350px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="inner-fade">
+			<li><img src="image/Ahgoo.jpg"/></li>
+			<li><img src="image/Boodae.jpg"/></li>
+			<li><img src="image/Chicken.png"/></li>
+			<li><img src="image/Coldmyeon.png"/></li>
+			<li><img src="image/Edong.png"/></li>
+			<li><img src="image/makchang.png"/></li>
+			<li><img src="image/Sixgray.png"/></li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#inner-fade').innerfade({
+				animationtype:'fade', // 변경 효과 fade,slide
+				speed:750, //변경 속도, slow normal fast 숫자
+				timeout:1500, //변경효과가 적용되는 속도, 숫자
+				type:'random',//변경 방식, sequence random random_start
+				containerheight:'350px' //내용물의 높이, auto 숫자
+				//이미지 말고도 활용 가능
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+
+//animate() 사용자 지정 효과 생성
+//$('h1').animate(object)
+//$('h1').animate(object,speed)
+//$('h1').animate(object,speed,easing)
+//$('h1').animate(object,spped,easing,callback)
+//첫 번째 매개변수로 사용 가능한 목록 = opacity, height, top, width, left, margin, right, padding, bottom
+//animate를 사용하려면 position속성이 absolute 이거나 relative 이어야 한다.
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<style>
+			div{
+				width: 50px;
+				height: 50px;
+				background-color: orange;
+				position:relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('div').hover(
+				function(){
+					$(this).animate({
+						left:500
+					},'slow');				
+				},
+				function(){
+					$(this).animate({
+						left:0
+					},'slow');
+				}
+				);
+		});
+	</script>
+</html>
+
+
+
+
+
+//상대적 애니메이션, 이것 굉장히 많이 사용
+//현재 값 알아내서, 값을 추가하면 상대적으로 구현 가능
+//클릭이 누적된다 ㅠㅠ 밑밑에서 해결
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<style>
+			div{
+				width: 50px;
+				height: 50px;
+				background-color: orange;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('div').click(function(){
+				var width = $(this).css('width');
+				var height = $(this).css('height');
+
+				/*
+				$(this).animate({
+					width:parseInt(width)+50,
+					height:parseInt(height)+50
+				},'slow');
+				*/
+				//or
+
+				$(this).animate({
+					width: '+=50',
+					height:'+=50'
+				},'slow');
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+//jquery의 효과 메소드는 큐에 누적된다.
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<style>
+			div{
+				width: 50px;
+				height: 50px;
+				background-color: orange;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('div').click(function(){
+				$(this).animate({
+					left: '+=60'
+				},2000).animate({
+					width: '+=60'
+				}).animate({
+					height:'+=60'
+				});
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+//clearQueue() -> 큐의 내용 제거
+//hide한다고 해도 실행중인 이벤트까지는 제어할 수 없다.
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<style>
+			div{
+				width: 50px;
+				height: 50px;
+				background-color: orange;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('div').animate({
+				left:'+=60'
+			},2000);
+			$('div').animate({
+				width:'+=60'
+			},2000);
+			$('div').animate({
+				height:'+=60'
+			},2000);
+
+			setTimeout(function(){
+				$('div').clearQueue();
+				//$('div').hide();
+			},3000);
+		});
+	</script>
+</html>
+
+
+
+
+
+
+//hide를 보완하기 위해 stop을 사용한다.
+//stop();
+//stop(clearQueue);
+//stop(clearQueue,goToEnd);
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<style>
+			div{
+				width: 100px;
+				height: 100px;
+				background-color: orange;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<button>stop()</button><!-- 이동을 멈추고 왼쪽으로 이동 -->
+		<button>stop(true)</button><!-- 이동을 멈추고 다음 setInterval 대기 -->
+		<button>stop(false,true)</button><!-- 오른쪽 끝으로 이동하고 왼쪽으로 이동 -->
+		<button>stop(true,true)</button><!-- 오른쪽 끝으로 이동하고 다음 setInterval 대기 -->
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('button').click(function(){
+				var html = $(this).html();
+				var evalText = "$('div')."+html;
+				eval(evalText);
+			});
+
+			setInterval(function(){
+				$('div').animate({
+					left:'500'
+				},1000).animate({
+					left:'0'
+				},1000);
+			},2000);
+		});
+	</script>
+</html>
+
+
+
+
+
+//지금까지는 메서드 실행하자마자 바로 시작
+//delay() 큐에 있는 명령을 잠시 중지
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<style>
+			div{
+				width: 100px;
+				height: 100px;
+				background-color: orange;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('div').each(function(index){
+				$(this).delay(index*500).animate({
+					left:500
+				},'slow');
+			});
+		});
+	</script>
+</html>
+
+
+
+
+jquery ui 플러그인
+다운로드 : jqueryui.com
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.12.1.custom/jquery-ui"></script>
+		<link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1.custom/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1.custom/jquery-ui.structure.css">
+		<link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1.custom/jquery-ui.theme.css">
+
+		<style>
+			.reverse{
+				color: white;
+				background-color: black;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<h1>Lorem</h1>
+			<p>Lorem ipsum</p>
+		</div>
+		<div>
+			<h1>Lorem</h1>
+			<p>Lorem ipsum</p>
+		</div>
+		<div>
+			<h1>Lorem</h1>
+			<p>Lorem ipsum</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('div').hover(
+				function(){
+					$(this).addClass('reverse',1000);
+				},
+				function(){
+					$(this).removeClass('reverse',1000);
+				}
+			);
+		});
+	</script>
+</html>
+
+
+
+
+
+//easing 플러그인
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<script type="text/javascript" src="jquery.innerfade.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+		<link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1.custom/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1.custom/jquery-ui.structure.css">
+		<link rel="stylesheet" type="text/css" href="jquery-ui-1.12.1.custom/jquery-ui.theme.css">
+
+		<style>
+			div{
+				background-color: orange;
+				width: 150px;
+				height: 150px;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<select>
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+
+			<option>D</option>
+			<option>E</option>
+			<option>F</option>
+		</select>
+		<button>MOVE</button>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('button').click(function(){
+				var easing = $('select>option:selected').html();
+
+				$('div').animate({
+					left:'400'
+				},2000,easing).animate({
+					left:'0'
+				},1000,easing);
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+
+animate으로 left 또는 top을 조작하려면 absolute이거나 relative이어야 한다.
+절대좌표로 하는 것이 일반적.
+부모의 position스타일 속성이 absolute 또는 relative일 때만 자식구성요소가 부모의 위치를 기준으로 위치를 잡는다.
+overflow는 내용물이 사용할 수 있는 범위를 초과하면 어떻게 처리할 지 나타낸다.
+<html>
+<head>
+	<script type="text/javascript" src = "jquery-3.1.0.js"></script>
+</head>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		#canvas{
+			background: gray;
+			width:600px;
+			height:400px;
+			position: relative;
+			overflow: hidden;
+		}
+		.inner-box{
+			background: orange;
+			position: absolute;
+			width: 100px;
+			height:100px;
+
+		}
+	</style>
+	<body>
+		<h1>Test Header</h1>
+		<div id="canvas">
+			<div class="inner-box"></div>
+			<div class="inner-box"></div>
+			<div class="inner-box"></div>
+			<div class="inner-box"></div>
+			<div class="inner-box"></div>
+		</div>
+		<h1>Test Header</h1>
+	</body>
+	<script>
+		$(document).ready(function(){
+			$('.inner-box').each(function(index){
+				$(this).css({
+					left : index*90,
+					top : index*90
+				});
+			});
+		});
+	</script>
+</html>
+
+
+
+
+
+
+이미지 슬라이더
+control_button과 같은 요소는 css에서 이미지 설정한다.
+hover와 active 사용가능하기 때문, 오류고쳐보자
+<html>
+	<head>
+		<script type="text/javascript" src="jquery-3.1.0.js"></script>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+
+			/* Animation Canvas*/
+			.animation_canvas{
+				/* overflow:hidden; */
+				position: relative;
+				width: 600px;
+				height: 400px;
+			}
+
+			/* Slider Panel */
+			.slider_panel{
+				width: 3000px;
+				position: relative;
+			}
+			.slider_image{
+				float: left;
+				width: 600px;
+				height: 400px;
+			}
+
+			.slider_text_panel{
+				position: absolute;
+				top:200px;
+				left:50px;
+			}
+			.slider_text{
+				position: absolute;
+				width: 250px;
+				height: 150px;
+			}
+
+			.control_panel{
+				position: absolute;
+				top: 380px;
+				left: 270px;
+				height: 13px;
+				overflow: hidden;
+			}
+			.control_button{
+				width: 12px;
+				height: 46px;
+				position: relative;
+				float: left;
+				cursor: pointer;
+				background: url('Park.jpg');
+			}
+			.control_button:hover{
+				top:-16px;
+			}
+			.control_button:active{
+				top:-31px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Test Header</h1>
+		<div class="animation_canvas">
+			<div class="slider_panel">
+				<img class="slider_image" src="Park.jpg">
+				<img class="slider_image" src="Park.jpg">
+				<img class="slider_image" src="Park.jpg">
+				<img class="slider_image" src="Park.jpg">
+				<img class="slider_image" src="Park.jpg">
+			</div>
+			<div class="slider_text_panel">
+				<div class="slider_text">
+					<h1>Lorem1</h1>
+					<p>Lorem Ipsum1</p>
+				</div>
+				<div class="slider_text">
+					<h1>Lorem2</h1>
+					<p>Lorem Ipsum2</p>
+				</div>
+				<div class="slider_text">
+					<h1>Lorem3</h1>
+					<p>Lorem Ipsum3</p>
+				</div>
+				<div class="slider_text">
+					<h1>Lorem4</h1>
+					<p>Lorem Ipsum4</p>
+				</div>
+				<div class="slider_text">
+					<h1>Lorem5</h1>
+					<p>Lorem Ipsum5</p>
+				</div>
+			</div>
+			<div class="control_panel">
+				<div class="control_button"></div>
+				<div class="control_button"></div>
+				<div class="control_button"></div>
+				<div class="control_button"></div>
+				<div class="control_button"></div>
+			</div>
+		</div>
+		<h1>Test Header</h1>
+	</body>
+
+	<script>
+		$(document).ready(function(){
+			function moveSlider(index){
+				var willMoveLeft = -(index*600);
+				$('.slider_panel').animate({left:willMoveLeft},'slow');
+
+				$('.control_button[data-index='+index+']').addClass('active');
+				$('.control_button[data-index!='+index+']').removeClass('active');
+
+				$('.slider_text[data-index='+index+']').show().animate({left:0},'slow');
+
+				$('.slider_text[data-index!='+index+']').hide('slow',function(){
+					$(this).css('left',-300);
+				});
+			}
+
+
+			$('.slider_text').css('left',-300).each(function(index){
+				$(this).attr('data-index',index);
+			});
+
+			$('.control_button').each(function(index){
+				$(this).attr('data-index',index);
+			}).click(function(){
+				var index = $(this).attr('data-index');
+				moveSlider(index);
+			});
+
+			var randomNumber = Math.round(Math.random()*4);
+			moveSlider(randomNumber);
+		});
+	</script>
+
+</html>

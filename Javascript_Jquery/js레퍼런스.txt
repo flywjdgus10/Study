@@ -1,0 +1,1759 @@
+JavaScript's standard name is ECMAScript.
+You do not have to write 'type' in <script> in HTML5. It is a rule in HTML5
+값을 만들어내는 간단한 코드 = 표현식
+js에서 ; 는 관례상 붙이는 것
+alert(" \"fd\" "); 이스케이프 문자
+js는 정수, 유리수 구분 x
+"가방" > "하마"  =>  false
+true > false => true
+
+변수의 종류중엔
+var functionVar = function() {};도 있고
+undefined도 있다.(선언 안하고 alert하거나 초기화 안하고 alert하여 확인)
+
+문자열 입력할 때 prompt 사용
+bool 입력할 때 confirm 사용
+
+alert(52 + '273') => 52273
+alert(52 * '273') => 14196
+
+숫자로 형변환 -> Number()
+문자로 형변환 -> String()
+ 불로 형변환 -> Boolean()
+ 
+자료형도 검사 -> ===
+
+date객체로 날짜 관련 코드 작성가능
+Math객체로 숫자 관련 코드 작성가능
+
+자료형 확인 -> alert(typeof(273));
+
+배열 -> var array = [273,"String",true,function(){},{},[273,103]];
+array.length
+array.push(1)
+
+js는 foreach 대신 for in 사용한다
+
+익명함수 <-> 선언적 함수
+
+var functionVar = function() {};
+처럼 자바스크립트는 함수를 자료형으로 취급한다.
+
+브라우저는 script코드를 읽기 전, 선언적 함수부터 읽는다.
+
+가변인자함수 -> Array()
+
+
+
+arguments in function
+	function sumAll(){ //가변인자함수
+		var output = 0;
+		for(var i = 0;i < arguments.length; i++){
+			output += arguments[i];
+			if(arguments.length == 0)
+				//
+			else if(arguments.length == 1)
+				//
+			else
+				//
+		}
+		return output;
+	}
+	
+	
+Math.sqrt(3,4);//수학객체
+function a(){
+	function b(){
+	}
+	function c(){
+	}
+	//함수 중첩으로 package 와 비슷한 효과를 얻는다.
+}
+
+자기 호출 함수 = 
+(function (){
+	
+})();
+
+콜백 함수 = 매개변수로 전달하는 함수 (js는 함수도 자료형으로 취급)
+function callTenTimes(callback){
+	callback();
+}
+var callback = function(){
+	alert();
+};
+callTenTimes(); 
+CallTenTimes(function() {
+	alert();//익명 콜백 함수
+});
+
+
+
+함수를 리턴하는 함수
+function returnFuntion(){
+	return function(){
+		alert();
+	};
+}
+returnFuntion()();
+
+
+
+클로저
+function test(name){
+	var output="123" + name;
+	return function(){
+		alert(output);
+	};
+}
+test("java")();
+
+
+
+
+
+
+
+
+setTimeout -> 한번
+setInterval -> 반복
+
+이 둘은, script 내의 모든 코드가 실행 된 후 실행된다.
+for(var i=0;i<3;i++)
+	setTimeout(function(){ alert(i); },0);
+	//결과는 3 3 3, 클로저나 foreach로 해결 가능
+클로저->
+for(var i=0;i<3;i++){
+	(function(j){
+		setTimeout(function(){
+			alert(j);
+		},0);
+	})(i);
+}
+foreach->
+[0,1,2].forEach(function(){
+	setTimeout(function(){
+		alert(i);
+	},0);
+});
+	
+
+setTimeout(function(){
+					alert(i);
+				},0);
+				
+var intervalId = setInterval(function(){
+		alert("<p>" + new Date() + "</p>");
+	},1000);
+setTimeout(function(){
+	clearInterval(intervalId);
+},10000);
+
+
+
+
+
+
+
+
+
+
+encoding 인코딩과 디코딩. 부호화와 복조화. 문자열을 특수문자로 인코딩
+var URI = "http://hanb.co.kr?test=한글입니다.";
+var output = "";
+output += '★escape()\n';
+output += escape(URI) + "\n\n";
+output += '★encodeURI()\n';
+output += encodeURI(URI) + "\n\n";			
+output += '★encodeURIComponent()\n';
+output += encodeURIComponent(URI) + "\n\n";
+alert(output);
+
+
+
+
+var willEval = "";
+willEval += "var number = 10;";
+willEval += "alert(number);";			
+eval(willEval);//그대로 실행, 문자열을 js코드로 실행
+alert(number);//eval에서 정의된 변수도 사용 가능
+
+
+
+if( isNaN(NaN) )
+	alert("참");
+else
+	alert("거짓");
+inFinite() -> 무한한 값인지 확인
+isNaN() -> NaN인지 확인
+	
+	
+	
+형변환
+var won = "1000원"
+var dollar = "1.5$";
+alert(parseInt(won) + " : " + parseInt(dollar)); => Number() 보완
+alert(parseFloat(won) + " : " + parseFloat(dollar));
+
+
+배열 생성
+var array = ["사과","바나나","망고","딸기"];
+
+
+객체생성, 사용
+var product = {
+	제품명 : "7D 건조 망고",
+	유형 : "당절임",
+	성분 : "망고, 설탕, 메타중아황산나트륨, 치자황색소",
+	원산지 : "필리핀"
+	eat : function (food){ alert(this.성분 + food); }
+}; product.eat("밥");
+var output = "";
+for(var key in product){
+	output += key + product[key];
+}
+
+
+
+var output = "";
+var student = {
+	이름 : "연하진",
+	국어 : 92, 수학 : 98
+};
+output += "'이름' in student : " + ('이름' in student) + "\n";
+output += "'성별' in student : " + ('성별' in student) + "\n";
+alert(output);
+
+
+
+var student = {};
+
+student.이름 = "윤인성";
+student.취미 = "악기";
+student.toString = function(){
+	var output = "";
+	for(var key in this)
+		if(key != "toString")
+			output += key + "\t" + this[key] + "\n";
+	return output;
+};
+alert(student.toString());
+delete(student.취미);
+alert(student.toString());
+=alert(student);
+
+
+
+var student = [];
+student.push({이름 : "유정현",국어 : 97});
+
+
+var student = [];
+student.push({이름 : "유정현",국어 : 97,수학 : 80,영어 : 88});
+for(var i in student){
+	student[i].getSum = function(){
+		return this.국어 + this.수학 + this.영어;
+	};		
+}
+var output = "";
+for(var i in student){
+	with(student[i]){
+		output += 이름 + " " + getSum() + "\n";
+	}
+}
+alert(output);
+
+
+
+
+다수의 객체 생성1
+function makeStudent(name,korean,math,english,science){
+	var for_return = {    //이방법은 잘 안쓰임. 밑의 생성자 함수를 더 자주 사용
+		이름 : name,
+		국어 : korean,
+		수학 : math,
+		영어 : english,
+		과학 : science,
+		getSum : function(){
+			var sum = this.국어 + this.수학 + this.영어
+				+ this.과학;
+			return sum;
+		},
+		getAverage : function(){
+			var avg = this.getSum()/4;
+			return avg;
+		},
+		toString : function(){
+			var str = this.이름 + " " 
+				+ this.getAverage() + "\n";
+			return str;
+		}
+	};
+	return for_return;
+}
+var students = [];
+students.push(makeStudent("유정현1",1,2,3,4));
+students.push(makeStudent("유정현2",5,6,7,8));
+students.push(makeStudent("유정현3",9,10,11,12));
+var output = "";
+for(var i in students){
+	output += students[i].toString();
+}
+alert(output);
+
+
+
+
+다수의 객체 생성2
+function Student(name,korean,math,english,science){
+	this.이름 = name; //이 부분에 있어서도 차이점이 많다
+	this.국어 = korean;
+	this.수학 = math;
+	this.영어 = english;
+	this.과학 = science;
+}
+Student.prototype.getSum = function(){
+	var sum = this.국어 + this.수학 + this.영어 + this.과학;
+	return sum;				
+}; // 프로토 타입은 모든 객체가 공유. static 이랑 비슷한듯
+Student.prototype.getAverage = function(){
+	var avg = this.getSum()/4;
+	return avg;
+};
+Student.prototype.toString = function(){
+	var str = this.이름 + " " + this.getAverage() + "\n";
+	return str;
+};
+var students = [];
+students.push(new Student("유정현1",1,2,3,4)); //생성자 함수
+students.push(new Student("유정현2",11,21,31,41));
+
+var output = "";
+for(var i in students)
+	output += students[i].toString();
+alert(output);
+
+
+
+
+
+
+다수의 객체 생성3
+function Rectangle(){
+	this.width = 0;
+	this.height = 0;
+}
+Rectangle.prototype.getWidth = function(){
+	return this.width;
+};
+Rectangle.prototype.getHeight = function(){
+	return this.height;
+};
+Rectangle.prototype.setWidth = function(w){
+	if(w < 0)
+		throw "길이는 음수일 수 없다"
+	else 
+		this.width = w;
+};
+Rectangle.prototype.setHeight = function(h){
+	if(h < 0)
+		throw "길이는 음수일 수 없다"
+	else 
+		this.height = h;
+};
+Rectangle.prototype.getArea = function(){
+	return this.getWidth() * this.getHeight();
+};
+var temp = new Rectangle();
+temp.setWidth(11);
+temp.setHeight(22);
+alert(temp.getArea());
+
+
+
+
+
+다수의 객체 생성4, 상속
+function Rectangle(w,h){
+	this.width = w;
+	this.height = h;
+}
+Rectangle.prototype.getWidth = function(){
+	return this.width;
+};
+Rectangle.prototype.getHeight = function(){
+	return this.height;
+};
+Rectangle.prototype.setWidth = function(w){
+	if(w < 0)
+		throw "음수 ㄴㄴ";
+	else
+		this.width = w;
+};
+Rectangle.prototype.setHeight = function(h){
+	if(h < 0)
+		throw "음수 ㄴㄴ";
+	else
+		this.height = h;
+};
+Rectangle.prototype.getArea = function(){
+	return this.width * this.height;
+};			
+</script>
+<script>
+function Square(length){
+	this.base = Rectangle;
+	this.base(length,length);
+}
+Square.prototype = Rectangle.prototype;
+Square.prototype.constructor = Square;
+
+var rectangle = new Rectangle(5,7);
+var square = new Square(5)
+alert(rectangle.getArea() + " : " + square.getArea());
+alert(square instanceof Rectangle);//상속 확인
+
+
+
+
+
+
+타입 스크립트와 커피스크립트 = 다른 코드로 작성된 코드를 js코드로 작성해주는 js엔진
+
+
+
+
+
+
+
+기본자료형 vs 객체
+var primitiveNumber = 273; //숫자 자료형에 대해 method 삽입
+var objectNumber = new Number(273);
+Number.prototype.method = function(){
+	return "Method on Prototype"; //primitiveNumber.method로는 추가할 수 없다(기본자료형이기 때문)
+}
+var output = "";
+output += primitiveNumber.method() + "\n";
+output += objectNumber.method();
+
+
+
+
+
+
+
+
+
+var object = new Object(); 또는 var object = {};
+alert(object);//자동으로 toString된다
+alert(object.toString());                 
+//object의 7가지 메서드 존재.
+//constructor()
+//hasOwnProperty(name)
+//isPrototypeof(object)
+//propertyIsEnumerable(name)
+//toLocaleString()
+//toString()
+//valueOf()
+
+
+
+var student = {
+	name : "윤명월",
+	grade : "대학교 1학년",
+	toString : function(){
+		return this.name + " : " + this.grade; 
+	}//오버라이딩,    object에 프로토타입으로 추가하면, 이후의 모든 객체에서 해당 함수 사용가능
+};
+alert(student.toString());
+
+
+
+
+
+
+자료형 비교 -> typeof와 object객체의 constructor() , 2가지가 있다.
+if(typeof (숫자자료형) == 'number')
+if(typeof (숫자객체) == 'number')
+if(숫료형.constructor == Number)
+if(숫체.constructor == Number)
+
+
+
+
+
+Number 객체는 3개의 추가 메서드를 갖는다.
+//toExponential() 지수표시로 나타낸 문자열 리턴
+//toFixed() 고정 소수점 표시로 나타낸 문자열 리턴
+//toPrecision() 길이에 따라 지수표시 or 고정소수점 표시로 나타낸 문자열 리턴
+//123321.toFixed() 도 가능
+Number 객체는 다음의 속성도 있다.
+//MAX_VALUE, 최소
+//POSITIVE_INFINITY , NEGATIVE_INFINITY
+//NaN
+
+
+
+
+
+
+
+
+
+생성자 함수도 속성과 메서드를 가질 수 있다.(함수도 자료형...ㅎ)
+function Constructor(){}
+Constructor.property = 1;
+Constructor.method = function(){};
+alert(Constructor.property);
+
+
+
+
+
+
+
+
+String 객체
+var stringFromLiteral = "Hello World..!";
+var stringFromConstructor = new String("Hello World..!");
+var characters = prompt("비번?","6이상");
+if(characters.length < 6) //String객체의 속성은 이게 끝. but... 메서드는 겁나많다. 216p참조하거나 구글링 (기본 메서드 vs html관련 메서드)
+alert("짧어!!");
+
+
+
+
+String의 메서드 사용 주의점
+var string = "abc";
+string.toUpperCase();
+alert(string);
+string = string.toUpperCase();
+alert(string);
+string method list googling!!!!!!!!!!!!!
+
+
+
+
+
+
+
+
+메서드 체이닝 = out = out.toLowerCase().substring(0,10); //jquery에서 많이 사용
+
+
+
+
+
+
+
+
+array객체 생성자 함수 3가지 => Array(), Array(3), Array(3,3,3,3,3);, var a = [3,3,3,3];
+for(var i=0; i<array.length;i++)
+output += i + " : " + array[i] + "\n";
+//array의 메서드
+//concat()
+//join()
+//pop()
+//push()
+//reverse()
+//slice()
+//sort() -> 숫자오름차순이 아닌 문자열 오름차순
+//splice()
+
+
+
+
+
+
+
+
+
+
+var array = [5,4,2,7,8,3];
+array.sort();//문자열 오름차순!! (숫자열 오름차순x)
+array.sort(function(left,right){
+	//return left-right;
+	return right-left;
+});
+alert(array);
+
+
+
+
+
+
+
+객체 생성을 생성자 함수를 통해 한다.
+function Student(name){
+	this.name = name;
+	this.getAverage = function(){
+		return ~;
+	}
+}
+
+student.sort(function(left,right){
+	return right.getKorean() - left.getKorean();
+});
+student = student.slice(0,3);
+//체이닝 사용
+student.sort(function(left,right){
+	return right.getKorean() - left.getKorean();
+}).slice(0,3);
+
+
+
+
+
+
+
+
+
+splice를 이용해 remove함수 만든다
+Array.prototype.remove = function(index){
+	this.splice(index,1);
+}
+var array = [1,2,3,4,5];
+for(var i=array.length-1;i>=0;i--){
+	if(array[i] < 5){
+		array.remove(i); //제거 후 앞으로 땡김에 주의!!
+	}
+} //array객체에서 push,pop,splice 세가지는 꼭 기억
+alert(array);
+
+
+
+
+
+
+
+
+
+
+date객체
+var date = new Date();//현재시간으로 초기화, 생성자 함수는 정말 많다. 구글링
+alert(date);
+var date = new Date(1991,11,8,2,24,23,1);
+date = new Date("December 9, 1991 02:24:23");
+date = new Date(2732741033257);
+
+
+
+
+
+
+
+var date = new Date();//get set 메서드 정말 많다, to~String() 함수들 구글링 해보자
+date.setDate(date.getDate()+7);
+alert(date);
+
+
+
+
+
+
+
+d-day 생성
+var now = new Date();
+var before = new Date("December 9,2015");
+var interval = now.getTime() - before.getTime();
+interval = Math.floor(interval / (1000*60*60*24));
+alert("Interval : "+interval+"일");
+
+
+
+
+
+
+
+d-day 생성 + prototype
+Date.prototype.getInterval = function(otherDate){
+	var interval;
+	if(this > otherDate)
+		interval = this.getTime() - otherDate.getTime();
+	else
+		interval = otherDate.getTime() - this.getTime();
+	return Math.floor(interval / (1000*60*60*24));
+}
+var now = new Date();
+var before = new Date("December 12,1992");
+alert("Interval : "+" : "+now.getInterval(before)+"일");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Math method and property list googling!!!!!!!!!!!!!
+Math객체는 생성자함수 사용x ,직통으로 사용 . 속성과 메서드 구글링 필요
+
+
+
+
+
+
+
+자바스크립트의 표준안 = ECMAScript 5-> 객체관련 기능 보완
+alert(Array.isArray([1,2,3]));
+var array = [1,2,3,4,4,3,2,1];
+var output1 = array.indexOf(4);//3
+var output2 = array.indexOf(2);//1
+var output3 = array.lastIndexOf(4);//4
+var output4 = array.lastIndexOf(2);//6
+
+
+
+
+
+
+
+
+var array = [1,2,3,4,5,6,7,8,9,10];
+var sum = 0;
+var output = "";
+array.forEach(function(element,index,array){
+	sum += element;
+	output += index + " : " + element + "->" + sum + "\n";				
+});
+
+
+
+var array = [1,2,3,4,5,6];
+var output = array.map(function(element){
+	return element*element;
+});
+alert(output);
+
+
+
+var array = [1,2,3,4,5,6];
+array = array.filter(function(element,index,array){
+	return element <= 5; //true이면 해당 요소 발탁
+});
+alert(array);
+
+
+
+
+var array = [1,2,3,4,5,6,7,8,9,10];
+function lessThanFive(element,index,array){
+	return element < 5;
+}
+function lessThanTwenty(element,index,array){
+	return element < 20;
+}
+var output1 = array.every(lessThanFive);
+var output2 = array.every(lessThanTwenty);
+var output3 = array.some(lessThanFive);
+var output4 = array.some(lessThanFive);
+
+
+
+
+var array = [1,2,3,4,5];
+var output = "";
+array.reduce(function(previousValue,currentValue,index,array){
+	output += previousValue + " : " + currentValue + " : " + index + "\n";
+});
+alert(output);
+
+var array = [1,2,3,4,5];
+var result = array.reduce(function(previousValue,currentValue,index,array){
+	return previousValue + currentValue;
+});
+alert(result);
+
+
+
+
+
+
+
+
+
+
+ECMAScript 5 부터 정식으로 json 지원.js object형태의 문자열. 
+그러나 객체 속성 확인할 땐, json 함수 말고 for in 등을 활용하자.
+var object = {
+	name : "윤인성",
+	region : "서울"
+};
+alert(object);
+alert(JSON.stringify(object));
+var copy = JSON.parse(JSON.stringify(object));
+alert(copy);
+
+
+
+
+
+
+
+
+
+
+//toJSON 함수가 있으면 이 함수의 반환을 사용하게 된다.
+var object = {
+	name : "object",
+	prop : "object",				
+	toJSON : function(){
+		return {
+			custom : "custom"
+		};
+	}
+};
+alert(JSON.stringify(object));
+
+
+
+
+
+
+
+
+
+
+
+//String에서 추가된 메소드. 양 공백 제거
+var text = " text ";
+var output = "";
+output += "++" + text + "++\n";
+output += "++" + text.trim() + "++\n";
+alert(output);
+ECMAScript 5의 object에 관한 더 많은 정보 => 책 251 페이지, 하지만 최근엔 잘 사용 안하는 듯
+
+
+
+
+
+
+
+
+
+
+
+
+
+휴식프로그램~~~ html5부터 지원되는 간단한 음악재생
+<script>
+	var audio = new Audio("@!#@!.mp3");
+</script>
+<body>
+	<button onclick="audio.play()">play</button>
+	<button onclick="audio.pause()">play</button>
+	<input type="number" onchange="audio.currentTime = this.value"/>
+	<input type="number" onchange="audio.volume = this.value"/>
+</body>
+
+
+
+
+
+
+
+bom -> browser object model
+	-> (location, navigator, history, screen, document)*object , window object(최상위)
+
+
+
+	
+	
+	
+	
+	
+	
+
+//window 객체의 메소드 속성 확인가능
+var output = ""; // output은 자동으로 window object의 속성이 된다.
+for(var key in window)
+	output += "*" + key + " : " + window[key] + "\n";
+alert(output); 
+
+
+
+
+
+
+
+
+window object의 메소드 리스트
+open()
+moveBy()//상대적
+moveTo()//절대적
+resizeBy()
+resizeTo()
+scrollBy()
+scrollTo()
+focus()
+blur()
+close()
+
+
+
+
+
+open메소드
+var child = window.open("https://google.com"," ",
+	"width=600, height=300");
+if(child)
+	child.document.write("<h1>From Parent Window</h1>");
+else
+	alert("팝업제거요망");
+	
+	
+	
+	
+	
+	
+screen 객체는 속성밖에 안쓰는듯..?
+width
+height
+availWidth
+availHeight
+colorDepth
+pixelDepth
+
+
+
+
+
+
+
+
+
+var child = window.open("","","width=300,height=200");
+var width = screen.width;
+var height = screen.height;
+child.moveTo(0,0);
+child.resizeTo(width,height);
+setInterval(function(){
+	child.resizeBy(-20,-20);
+	child.moveBy(10,10);
+},1000);
+
+
+
+
+
+
+
+
+location객체의 속성과 메서드
+href
+host
+hostname
+port
+pathname
+hash
+search
+protocol
+reload()
+assign(link)
+replace(link) //assing과 다르게 replace는 뒤로가기버튼 사용 불가
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+navigator object의 속성
+appCodeName
+appName
+appVersion
+platform
+userAgent
+
+
+
+
+
+location과 navigator 속성확인
+var output = "";
+for(var key in location)
+	output += "*" + key + " : " + location[key] + "\n";
+alert(output); //location 객체의 메소드 속성 확인가능
+var output = "";
+for(var key in navigator)
+	output += "*" + key + " : " + navigator[key] + "\n";
+alert(output); //navigator 객체의 메소드 속성 확인가능
+
+
+
+
+
+
+
+
+
+
+
+
+on이 들어가면 이벤트속성!! 함수할당해야한다.
+window객체 로드가 완료되는 때 = 모든 태그가 화면에 올라간 후
+window객체 로드 과정 확인하는 코드
+<!doctype html>
+<html>
+	<head>
+		<title>Document Object Model</title>
+		<script>
+			window.onload = function(){
+				alert("Process - 0");
+			};
+		</script>
+	</head>
+	<body>
+		<h1>Process - 1</h1>
+		<script>alert("process - 2");</script>
+		<h2>Process - 2</h2>
+		<script>alert("Process - 3");</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dom => document 객체와 관련된 객체의 집합
+window.onload = function(){
+	var header = document.createElement("h1");문서 객체 or document 객체
+	var textNode = document.createTextNode("Hello DOM");
+	
+	header.appendChild(textNode);
+	document.body.appendChild(header);
+};
+
+
+
+
+
+
+
+
+
+//document객체의 메소드 탐색 계속~
+window.onload = function(){
+	var img = document.createElement("img");
+	//img.src = "Penguins.jpg";
+	//img.width = 500;
+	//img.height = 350;    웹브라우저 지원방식에 따라 다른 접근법
+	////img.setAttribute("src","Penguins.jpg");
+	////img.setAttribute("width",500);
+	////img.setAttribute("height",350);
+	////img.setAttribute("data-property",350);	웹브라우저 지원방식에 따라 다른 접근법
+	document.body.appendChild(img);
+};
+
+
+
+
+
+
+
+
+
+//이전처럼 연결하여 객체를 body에 추가할 수도 있지만
+//innerHTML을 이용하는 방법도 있다!
+window.onload = function(){
+	var output = "";
+	output += "<ul>";
+	output += " <li>JavaScript</li>";
+	output += " <li>Jquery</li>";
+	output += " <li>Ajax</li>";
+	output += "</ul>";
+	document.body.innerHTML = output;
+	//document.body.innerHTML += "<h1>Document Object Model</h1>";//태그모양까지 그대로 출력
+	//document.body.textContent = output;
+	document.body.textContent += "<h1>Document Object Model</h1>";
+	//익스플로러는 innerHTML이 제한적이다.
+};
+
+
+
+
+
+
+
+
+
+
+
+window.onload = function(){
+	alert("change!");
+	/*
+	var header1 = document.getElementById("header-1");
+	var header2 = document.getElementById("header-2");
+	header1.innerHTML = "with getElementById()";
+	header2.innerHTML = "with getElementById()";
+	*/
+	
+	
+	var headers = document.getElementsByTagName("h1");
+	headers[0].innerHTML = "with getElementsByTagName()";
+	headers[1].innerHTML = "with getElementsByTagName()";
+	
+	
+	/*
+	for in 반복문 사용하면 안 된다!!!!!!!!!!!!!!!!!
+	문서 객체 이외의 속성에도 접근하기 때문
+	var output = "";
+	for(var i in headers)
+		output += i + "\n";
+	alert(output);
+	*/
+	
+	
+	
+	alert("change!");
+	for(var i=0;i<headers.length;i++)
+		headers[i].innerHTML = "changed!! " + i;
+};
+
+
+
+
+
+
+
+
+
+
+
+querySelector('#header-1'); //css선택자를 통해 문서객체 선택
+querySelectorAll();
+
+
+
+
+
+
+
+css조작
+window.onload = function(){			
+	var header = document.getElementById("header");
+	header.style.border = "2px solid black";
+	header.style.color = "orange";
+	header.style.fontFamily = "helvetica";
+	//font-family같은 형식은 js에 쓸 수 없다.
+	
+	//document.body.style['backgroundColor'] = 'red'; 도 가능
+};
+
+
+
+
+
+
+
+
+문서 객체 제거
+window.onload = function(){
+	alert("Remove!!");
+	var willRemove = document.getElementById("will-remove");
+	document.body.removeChild(willRemove);
+	or
+	willRemove.parentNode.removeChild(willRemove);
+};
+
+
+
+
+
+
+
+
+
+
+
+//현재 시간 출력
+window.onload = function(){
+	var clock = document.getElementById("clock");
+	setInterval(function(){
+		clock.innerHTML = new Date().toString();
+	},1000);
+};
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html>
+	<head>
+		<script>
+			window.onload = function(){
+				var sun = document.getElementById("sun");
+				var earth = document.getElementById("earth");
+				var moon = document.getElementById("moon");
+				
+				sun.style.position = "absolute";
+				earth.style.position = "absolute";
+				moon.style.position = "absolute";
+				
+				var sunLeft = 350;
+				var sunTop = 300;
+				sun.style.left = sunLeft + "px";
+				sun.style.top = sunTop + "px";
+				
+				var earthAngle = 0;
+				var moonAngle = 0;
+				
+				setInterval(function(){
+					var earthLeft = sunLeft + 150 * Math.cos(earthAngle);
+					var earthTop = sunTop + 150 * Math.sin(earthAngle);
+					var moonLeft = earthLeft + 50 * Math.cos(moonAngle);
+					var moonTop = earthTop + 50 * Math.sin(moonAngle);
+					
+					earth.style.left = earthLeft + "px";
+					earth.style.top = earthTop + "px";
+					moon.style.left = moonLeft + "px";
+					moon.style.top = moonTop + "px";
+					
+					earthAngle += 0.1;
+					moonAngle += 0.3;
+				},1000/30);
+			};
+		</script>
+	</head>	
+	<body>
+		<h1 id = "sun">@</h1>
+		<h1 id = "earth">0</h1>
+		<h1 id = "moon">*</h1>
+	</body>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html>
+	<head>
+		<script><!-- 보조함수 -->
+			function nextRandomInteger(limit){//Math.random() => [0,1)
+				return Math.round(Math.random() * limit);//반올림,정수 반환
+			}
+			
+			
+			
+			var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			function randomAlphabet(){
+				return alphabet.charAt(nextRandomInteger(25));
+			}
+			//수정->
+			function randomAlphabet(){
+				var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+				return alphabet.charAt(nextRandomInteger(25));
+			}
+			//변수 낭비, 수정->
+			var randomAlphabet = (function(){
+				var alphabet = "abc";
+				return function(){
+					return alphabet.charAt(nextRandomInteger(25));
+				}
+			});
+			
+			
+			
+			
+			function randomSpeed(maxSpeed){
+				return Math.random() * maxSpeed - Math.random() * maxSpeed;
+			}
+		</script>
+		
+		
+		<script><!-- 생성자 -->
+			var canvasWidth = 500;
+			var canvasHeight = 700;
+			
+			function MovingText(){
+			
+				this.x = nextRandomInteger(canvasWidth);
+				this.y = nextRandomInteger(canvasHeight);
+				this.vx = randomSpeed(20);
+				this.vy = randomSpeed(10);
+				
+				this.body = document.createElement("h1");
+				this.body.innerHTML = randomAlphabet();
+				this.body.style.position = "absolute";
+				
+				
+				
+				document.body.appendChild(this.body);
+			}
+			
+			
+			MovingText.prototype.move = function(){
+				if(this.x < 0 || this.x > canvasWidth)
+					this.vx *= -1;
+				if(this.y < 0 || this.y > canvasHeight)
+					this.vy *= -1;
+				this.x += this.vx;
+				this.y += this.vy;
+				this.body.style.left = this.x + "px";
+				this.body.style.top = this.y + "px";
+			};
+		</script>
+		
+		
+		<script><!-- window.onload -->
+			window.onload = function(){
+				var movingTexts = [];
+				for(var i=0;i<10;i++)
+					movingTexts.push(new MovingText());
+				
+				setInterval(function(){
+					for(var i in movingTexts)
+						movingTexts[i].move();
+				},1000/60);
+			};
+		</script>
+	</head>
+	
+	
+	<body>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+이벤트는 사용자가 혹은 앱이 발생시킨다
+이벤트 모델 = 문서 객체에 이벤트를 연결하는 방법
+
+
+window.onload = function(){//onload를 이벤트 속성이라고 한다. function을 리스너 또는 핸들러 라고 한다.
+	var header = document.getElementById("header");
+	header.onclick = whenClick;
+	//header.onclick = whenClick(); 이것은 강제실행하게 된다!!!
+	
+	
+	document.getElementById("nav").onclick = function(){
+		alert(this);
+		this.style.color = "blue";
+		this.style.backgroundColor = "red";
+	};
+	
+	function whenClick() {
+		alert("CLICK!");
+		header.onclick = null;
+	}
+};
+
+
+
+
+
+
+
+
+window.onload = function(){
+	document.getElementById("header").onclick = function(e){
+		var event = e || window.event; //e넣는다 e없으면 window.event 넣는다
+		document.body.innerHTML = "";
+		for(var key in event){
+			document.body.innerHTML += "<p>" + key + " : " + event[key]
+			+ "</p>";
+		}
+	};
+};
+
+
+
+
+
+
+
+window.onload = function(){
+	var buttonA = document.getElementById("button-a");
+	var buttonB = document.getElementById("button-b");
+	var counterA = document.getElementById("counter-a");
+	var counterB = document.getElementById("counter-b");
+	buttonA.onclick = function(){ 
+		counterA.innerHTML = Number(counterA.innerHTML) + 1;
+	};
+	buttonB.onclick = function() {
+		counterB.innerHTML = Number(counterB.innerHTML) + 1;
+		buttonA.onclick();//강제실행
+	};
+};
+function whenClick(e){
+	alert("클릭");
+}
+
+
+
+
+
+
+<!doctype html>
+<html>
+	<head>
+		<script>
+			window.onload = function(){
+				document.getElementById("my-form").onsubmit = function(){
+					var pass = document.getElementById("pass").value;
+					var passCheck = document.getElementById("pass-check").value;
+					if(pass == passCheck)
+						alert("success");
+					else{
+						alert("false");
+						return false;//디폴트 이벤트 제거, 유효성검사
+					}					
+				};
+			};
+			function whenSubmit(){
+				return false;
+			}
+		</script>
+	</head>
+	
+	<body>
+		<form id = "my-form">
+			<label for = "name">이름</label><br/>
+			<input type = "text" name = "name" id = "name"/><br/>
+			<label for = "pass">비밀번호</label><br/>
+			<input type = "password" name = "pass" id = "pass"/><br/>
+			<label for = "pass-check">비밀번호 확인</label><br/>
+			<input type = "password" id = "pass-check"><br/><br/>
+			<input type = "submit" value = "제출"/>
+		</form>
+		
+		//인라인으로 할 경우
+		<form  onsubmit = "return whenSubmit();">
+			<label for = "name">학년</label><br/>
+			<input type = "text" name = "grade" id = "grade"/><br/>
+			<input type = "submit" value = "제출"/>			
+		</form>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html>
+	<head>
+		<style>
+			*{
+				border : 3px solid black;
+			}
+		</style>
+		<script>
+		</script>
+	</head>
+	
+	<body>
+		<div onclick = "alert('outer-div');">		
+			<div onclick = "alert('inner-div');">
+				<h1 onclick = "alert('header');">
+					<p onclick = "alert('paragraph');">
+						Paragraph
+					</p>//이벤트 버블링(기본순서)        <->이벤트 캡쳐링   .. 순서언급 이유는 이벤트를 중간에 막아야 할 필요가 있기 때문
+				</h1>
+			</div>			
+		</div>
+		
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+이벤트 중간에 막음
+<!doctpye html>
+
+<html>
+	<head>
+		<script>
+			window.onload = function(){
+				document.getElementById("header").onclick = function(){
+					alert("header");
+				};
+				document.getElementById("paragraph").onclick = function(e){
+					var event = e || window.event;
+					alert("paragraph");
+					
+					event.cancelBubble = true;  //explore o other o
+					if(event.stopPropagation)   //explore o other x
+						event.stopPropagation(); 
+				};
+			}
+		</script>
+	</head>
+	
+	<body>
+		<h1 id = "header">
+			<p id = "paragraph">Paragraph</p>
+		</h1>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+익스는  attachEvent, detachEvent로 이벤트를 연결,제거한다
+하지만 addEventListener와 removeEventListener가 표준(익스 9부터 지원)
+
+
+
+
+
+
+<!doctype>
+<html>
+	<head>
+		<script>
+			window.onload = function(){
+				var header = document.getElementById("my-header");
+				var handler = function(){
+					this.style.color = "red";
+					this.removeEventListener("click",handler);
+				};
+				header.addEventListener("click",handler);
+			};
+		</script>
+	</head>
+		
+	<body>
+		<h1 id = "my-header">Click</h1>
+	</body>
+</html>
+
+
+
+
+
+
+예외 = 기본예외처리(사전에 해결)/고급예외처리(try catch)
+
+
+
+
+
+
+
+
+<!doctype html>
+<html>
+	<head>
+		<script>
+		
+			function registerEventListener(node,event,listener){
+				try{
+					node.addEventListener(event,listener,false); //chrome
+					
+				}
+				catch(exception){
+					node.attachEvent("on"+event,listener); //explorer
+				}
+				finally{
+				}
+			}
+			
+			window.onload = function(){
+				var header = document.getElementById("header");
+				registerEventListener(header,"click",function(){alert("Click");});
+			};
+		</script>
+	</head>
+	
+	<body>
+		<h1 id = "header">Click</h1>
+	</body>
+	
+
+</html>
+
+
+
+
+
+
+
+
+try catch로 해결 가능 -> 예외
+			  불가능 -> 에러
+
+
+
+
+
+<!doctype html>
+<html>
+	<head>
+		<script>
+		
+			function registerEventListener(node,event,listener){
+				try{
+					node.addEventListener(event,listener,false); //chrome
+					var array = new Array(9999999999999999999999999999);
+				}
+				catch(exception){
+					//node.attachEvent("on"+event,listener); //explorer
+					
+					var output = "";
+					for(var i in exception)
+						output += i + " : " + exception[i] + "\n";
+					alert(output);
+				}
+				finally{
+				}
+			}
+			
+			window.onload = function(){
+				var header = document.getElementById("header");
+				registerEventListener(header,"click",function(){alert("Click");});
+			};
+		</script>
+	</head>
+	
+	<body>
+		<h1 id = "header">Click</h1>
+	</body>
+	
+
+</html>
+
+
+
+
+
+
+
+
+<!doctype html>
+<html>
+	<head>
+		<script>
+		
+			function registerEventListener(node,event,listener){
+				try{
+					node.addEventListener(event,listener,false); //chrome
+					var array = new Array(9999999999999999999999999999);
+				}
+				catch(exception){
+					//node.attachEvent("on"+event,listener); //explorer
+					
+					var output = "";
+					for(var i in exception)
+						output += i + " : " + exception[i] + "\n";
+					alert(output);
+				}
+				finally{
+				}
+			}
+			
+			window.onload = function(){
+				var header = document.getElementById("header");
+				registerEventListener(header,"click",function(){alert("Click");});
+			};
+			
+			
+			
+			
+			
+			
+			
+			function divide(alpha,beta){
+				if(beta == 0)
+					throw "DivideByZeroException";
+				else
+					return alpha/beta;
+			}
+			try{
+				divide(10,0);
+			}
+			catch(exception){
+				alert("CATCH");
+			}
+		
+		</script>
+	</head>
+	
+	<body>
+		<h1 id = "header">Click</h1>
+	</body>
+	
+
+</html>
+
