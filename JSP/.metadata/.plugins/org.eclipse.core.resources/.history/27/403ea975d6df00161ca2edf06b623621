@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charser=UTF-8" pageEncoding="UTF-8"%>
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Expression Test</title>
+</head>
+<body>
+	<h2>expression Test</h2>
+	<hr/>
+	<%
+	String[] str = {"AB","JAVA","Android","HTML5"};
+	int i=(int)(Math.random()*4);
+	%>
+	<%=
+	str[i]
+	%>
+</body>
+</html>

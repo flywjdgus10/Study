@@ -1,0 +1,12 @@
+package ch10.bean;
+
+public class ExBean {
+	String id;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+}

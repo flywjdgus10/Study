@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charser=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Timestamp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>scriptlet</title>
+</head>
+<body>
+	<h2>scriptlet</h2>
+	<hr/>
+	<%
+	Timestamp now = new Timestamp(System.currentTimeMillis());
+	%>
+	<%=
+	now.getHours();
+	now.getMinutes();
+	%>
+</body>
+</html>

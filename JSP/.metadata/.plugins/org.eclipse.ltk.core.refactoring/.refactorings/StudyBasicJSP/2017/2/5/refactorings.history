@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;StudyBasicJSP/WebContent/ch12/cookieLogoutPro.jsp&apos; to &apos;cookieLogout.jsp&apos;" description="Rename resource &apos;cookieLogoutPro.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/ch12/cookieLogoutPro.jsp" name="cookieLogout.jsp" stamp="1485932536506" updateReferences="true"/>
+</session>

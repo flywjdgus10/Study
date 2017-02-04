@@ -1,0 +1,16 @@
+127.0.0.1 - - [27/Jan/2017:18:00:25 +0900] "GET / HTTP/1.1" 404 988
+127.0.0.1 - - [27/Jan/2017:18:00:51 +0900] "GET /StudyBasicJSP/index.jsp HTTP/1.1" 200 135
+127.0.0.1 - - [27/Jan/2017:18:13:13 +0900] "GET / HTTP/1.1" 404 988
+127.0.0.1 - - [27/Jan/2017:18:13:26 +0900] "GET /StudyBasicJSP/WEB-INF/classes/ch02/HelloServlet.java HTTP/1.1" 200 545
+127.0.0.1 - - [27/Jan/2017:18:15:27 +0900] "GET / HTTP/1.1" 404 988
+127.0.0.1 - - [27/Jan/2017:18:15:31 +0900] "GET /StudyBasicJSP/WEB-INF/classes/ch02/HelloServlet.java HTTP/1.1" 404 986
+127.0.0.1 - - [27/Jan/2017:18:21:19 +0900] "GET / HTTP/1.1" 404 988
+127.0.0.1 - - [27/Jan/2017:18:30:22 +0900] "GET /StudyBasicJSP/HelloServlet HTTP/1.1" 404 1040
+127.0.0.1 - - [27/Jan/2017:18:36:34 +0900] "GET /StudyBasicJSP/HelloServlet HTTP/1.1" 404 1040
+127.0.0.1 - - [27/Jan/2017:18:36:48 +0900] "GET / HTTP/1.1" 404 988
+127.0.0.1 - - [27/Jan/2017:18:36:48 +0900] "GET /StudyBasicJSP/HelloServlet HTTP/1.1" 200 25
+127.0.0.1 - - [27/Jan/2017:18:37:27 +0900] "GET /StudyBasicJSP/HelloServlet HTTP/1.1" 500 1748
+127.0.0.1 - - [27/Jan/2017:18:37:28 +0900] "GET /StudyBasicJSP/HelloServlet HTTP/1.1" 200 20
+127.0.0.1 - - [27/Jan/2017:18:37:30 +0900] "GET /StudyBasicJSP/HelloServlet HTTP/1.1" 200 20
+127.0.0.1 - - [27/Jan/2017:18:37:45 +0900] "GET / HTTP/1.1" 404 988
+127.0.0.1 - - [27/Jan/2017:18:37:46 +0900] "GET /StudyBasicJSP/HelloServlet HTTP/1.1" 200 5

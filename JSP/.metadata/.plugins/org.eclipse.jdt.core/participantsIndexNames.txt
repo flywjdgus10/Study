@@ -1,0 +1,5 @@
+INDEX VERSION 1.129
+/home/tori/workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/598777058.index
+/StudyBasicJSP/src
+/home/tori/workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/448699999.index
+/webapps_StudyBasicJSP/src
