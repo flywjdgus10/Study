@@ -2,9 +2,11 @@ package ch13.board;
 
 import java.sql.Timestamp;
 
+
+//data bean for DB
 public class BoardDataBean {
 
-	private int num;
+	private int num;//article num, primary key
 	private String writer;
 	private String subject;
 	private String email;
@@ -13,9 +15,9 @@ public class BoardDataBean {
 	private Timestamp reg_date;
 	private int readcount;
 	private String ip;
-	private int ref;
-	private int re_step;
-	private int re_level;
+	private int ref;//types of article
+	private int re_step;//Sequence of article
+	private int re_level;//level of article
 	
 	public int getNum() {
 		return num;

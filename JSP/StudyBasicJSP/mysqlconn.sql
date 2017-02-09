@@ -12,6 +12,7 @@ select * from member where id='AA@naver.com';
 SELECT id, passwd FROM member WHERE id='AA@naver.com';
 
 update member set passwd='3579' where id ='AA@naver.com'
+update board set num='1' where writer ='a'
 
 DELETE from member WHERE id='BB@naver.com';
 DELETE from member WHERE id='CC@naver.com'
@@ -33,3 +34,5 @@ CREATE table board(
 
 SHOW TABLES
 SELECT * FROM board
+DELETE FROM board
+SELECT COUNT(*) FROM board
