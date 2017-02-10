@@ -1,21 +1,5 @@
-insert into member
-values('AA@naver.com','123','abc',now());
-insert into member
-values('BB@naver.com','1234','abcd',now());
-insert into member
-values('CC@naver.com','12345','abcde',now());
-
-SELECT * from member
-
-select * from member where id='AA@naver.com';
-
-SELECT id, passwd FROM member WHERE id='AA@naver.com';
-
-update member set passwd='3579' where id ='AA@naver.com'
-update board set num='1' where writer ='a'
-
-DELETE from member WHERE id='BB@naver.com';
-DELETE from member WHERE id='CC@naver.com'
+/*
+SHOW TABLES
 
 CREATE table board(
 	num int not null PRIMARY KEY AUTO_INCREMENT,
@@ -32,7 +16,49 @@ CREATE table board(
 	ip varchar(20) not null
 );
 
-SHOW TABLES
 SELECT * FROM board
-DELETE FROM board
 SELECT COUNT(*) FROM board
+
+DELETE FROM board
+DELETE from member WHERE id='CC@naver.com'
+
+insert into member
+values('AA@naver.com','123','abc',now());
+
+update member set passwd='3579' where id ='AA@naver.com'
+
+ALTER TABLE member
+ADD address VARCHAR(100) NOT NULL;
+ALTER Table cart MODIFY Column book_image VARCHAR(16) DEFAULT 'nothing.jpg'
+
+
+SHOW COLUMNS FROM book LIKE 're_date'
+
+*/
+
+SHOW COLUMNS FROM book LIKE 're_date'
+
+ALTER TABLE book CHANGE re_date reg_date DATETIME NOT NULL;
+
+DESC book
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

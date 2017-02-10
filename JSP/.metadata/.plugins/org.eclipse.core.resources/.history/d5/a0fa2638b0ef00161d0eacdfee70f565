@@ -1,0 +1,84 @@
+/*
+SHOW TABLES
+
+CREATE table board(
+	num int not null PRIMARY KEY AUTO_INCREMENT,
+	writer varchar(10) not null,
+	email varchar(30) ,
+	subject varchar(50) not null,
+	passwd varchar(12) not null,
+	reg_date DATETIME not null,
+	readcount int default 0,
+	ref int not null,
+	re_step smallint not null,
+	re_level smallint not null,
+	content text not null,
+	ip varchar(20) not null
+);
+
+SELECT * FROM board
+SELECT COUNT(*) FROM board
+
+DELETE FROM board
+DELETE from member WHERE id='CC@naver.com'
+
+insert into member
+values('AA@naver.com','123','abc',now());
+
+update member set passwd='3579' where id ='AA@naver.com'
+
+ALTER TABLE member
+ADD address VARCHAR(100) NOT NULL;
+*/
+
+CREATE TABLE buy(
+	buy_id BIGINT NOT NULL,
+	buy_price INT NOT NULL,
+	buy_count TINYINT NOT NULL,
+	buy_date DATETIME NOT NULL,
+	book_id VARCHAR(12) NOT NULL,
+	book_title VARCHAR(100) NOT NULL,
+	book_image VARCHAR(16) DEFAULT 'nothing.jpg',
+	buyer VARCHAR(50) NOT NULL,
+	
+	account VARCHAR(50) NOT NULL,
+	deliveryName VARCHAR(10) NOT NULL,
+	deliveryTel VARCHAR(20) NOT NULL,
+	deliveryAddress VARCHAR(100) NOT NULL,
+	sanction VARCHAR(20) DEFAULT 'Product preparing...'
+);
+
+ALTER Table cart MODIFY Column book_image VARCHAR(16) DEFAULT 'nothing.jpg' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

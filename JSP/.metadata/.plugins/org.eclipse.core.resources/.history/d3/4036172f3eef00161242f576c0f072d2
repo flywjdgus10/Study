@@ -1,0 +1,59 @@
+<%@ page language="java" contentType="text/html; charser=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.io.*" %>
+
+<%
+//absolute path of web app
+String realFolder="";
+
+//set folder to upload
+String saveFolder="/fileSave";
+String encType="utf-8";
+int maxSize=5*1024*1024;
+
+ServletContext context=getServletContext();
+realFolder=context.getRealPath(saveFolder);
+out.println("this realpath is : " + realFolder + "<br>");
+
+try{
+	MultipartRequest multi=null;
+	
+	multi = new MultipartRequest(request,realFolder,maxSize,encType,new DefaultFileRenamePolicy());
+	
+	Enumeration<?> params = multi.getParameterNames();
+	
+	while(params.hasMoreElements()){
+		String name = (String)params.nextElement();
+		String value = multi.getParameter(name);
+		out.println(name + " : " + value + "<br>");
+	}
+	out.println("------------------------------<br>");
+}catch(IOException e){
+	e.printStackTrace();
+	System.out.println(e);
+	out.print(e);
+}catch(Exception e){
+	e.printStackTrace();
+	System.out.println(e);
+	out.print(e);
+}
+
+
+
+%>
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+	</body>
+</html>

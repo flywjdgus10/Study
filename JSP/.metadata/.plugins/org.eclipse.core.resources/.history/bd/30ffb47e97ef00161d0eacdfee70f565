@@ -1,0 +1,131 @@
+package ch14.bookshop.master;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class ShopBookDBBean {
+	
+	private static ShopBookDBBean instance = new ShopBookDBBean();
+	public static ShopBookDBBean getInstance(){ return instance; }
+	private ShopBookDBBean(){}
+	
+	private Connection getConnection() throws Exception{
+		Context initCtx = new InitialContext();
+		Context envCtx = (Context)initCtx.lookup("java:comp/env");
+		DataSource ds = (DataSource)envCtx.lookup("jdbc/basicjsp");
+		return ds.getConnection();
+	}
+	
+	public int managerCheck(String id,String passwd) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String dbpasswd = "";
+		int x = -1;
+		
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement("SELECT managerPasswd FROM manager WHERE managerId = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				dbpasswd = rs.getString("managerPasswd");
+				if(dbpasswd.equals(passwd)) 
+					x = 1;
+				else
+					x = 0;
+			}
+			else
+				x = -1;
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if(conn != null){
+				try{conn.close();}
+				catch(SQLException e){}
+			}
+			if(rs != null){
+				try{rs.close();}
+				catch(SQLException e){}
+			}
+			if(pstmt != null){
+				try{pstmt.close();}
+				catch(SQLException e){}
+			}
+		}
+		return x;
+	}
+	
+	
+	
+	
+	public void insertBook(ShopBookDataBean book) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement("INSERT INTO book VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+			pstmt.setInt(1, book.getBook_id());
+			pstmt.setString(2, book.getBook_kind());
+			pstmt.setString(3, book.getBook_title());			
+			pstmt.setInt(4, book.getBook_price());
+			pstmt.setShort(5, book.getBook_count());
+			pstmt.setString(6, book.getBook_image());
+			pstmt.setString(7, book.getBook_content());
+			pstmt.setString(8, book.getAuthor());
+			pstmt.setString(9, book.getPublishing_com());
+			pstmt.setString(10, book.getPublishing_date());
+			pstmt.setByte(11, book.getDiscount_rate());
+			pstmt.setTimestamp(12, book.getReg_date());
+			
+			pstmt.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if(conn != null){
+				try{conn.close();}
+				catch(SQLException e){}
+			}
+			if(pstmt != null){
+				try{pstmt.close();}
+				catch(SQLException e){}
+			}
+			
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
