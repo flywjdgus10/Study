@@ -1,0 +1,120 @@
+<%@ page language="java" contentType="text/html; charser=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="ch14.bookshop.master.ShopBookDBBean" %>
+<%@ page import="ch14.bookshop.master.ShopBookDataBean" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
+<%@ include file="../../etc/color.jspf" %>
+<%
+String managerId="";
+try{
+	managerId = (String)session.getAttribute("managerId");
+	if(managerId == null||managerId.equals(""))
+		response.sendRedirect("../logon/managerLoginForm");
+	else{
+		%>
+		
+		<%!
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		%>
+		<%
+		List<ShopBookDataBean> bookList = null;
+		int number=0;
+		String book_kind="";
+		book_kind=request.getParameter("book_kind");
+		ShopBookDBBean bookProcess = ShopBookDBBean.getInstance();
+		int count=bookProcess.getBookCount();
+		if(count>0)
+			bookList = bookProcess.getBooks(book_kind);
+		
+		%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<title>Book List</title>
+	</head>
+	<body>
+		<%
+		String book_kindName="";
+		if(book_kind.equals("100")) 
+			book_kindName = "literature";
+		else if(book_kind.equals("200"))
+			book_kindName = "foreign language";
+		else if(book_kind.equals("300"))
+			book_kindName = "computer";
+		else if(book_kind.equals("all"))
+			book_kindName = "all";
+		%>
+		<a href="../managerMain.jsp">back to managerMain</a>
+		&nbsp;
+		<p>
+			<%=book_kindName %> 's list : 
+			<%
+			if(book_kind.equals("all")){
+				%>
+				<%=count %> books				
+				<%
+			}
+			else{
+				%>
+				<%=bookList.size()%>
+				<%
+			}
+			%>
+		</p>
+		
+		<table>
+			<tr>
+				<td align="right">
+					<a href="bookRegisterForm.jsp">Register book</a>
+				</td>
+			</tr>
+		</table>
+		<%
+		if(count==0){
+			%>
+			<table>
+				<tr>
+					<td align="center">
+						no books in DB.
+					</td>
+				</tr>
+			</table>
+			<%
+		}
+		else{			
+			%>
+			<table>
+				<tr height="30">
+				</tr>
+			</table>
+			<%
+		}
+		%>
+	</body>
+</html>
+		<% 
+	}
+}catch(Exception e){
+	e.printStackTrace();
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

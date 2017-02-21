@@ -1,0 +1,55 @@
+<%@ page language="java" contentType="text/html; charser=UTF-8" pageEncoding="UTF-8"%>
+<%@ page include file="../../etc/color.jspf" %>
+
+<%
+String managerId="";
+try{
+	managerId=(String)session.getAttribute("managerId");
+	if(managerId==""||managerId.equals(""))
+		response.sendRedirect("../logon/managerLoginForm.jsp");
+	else{
+		int book_id=Integer.parseInt(request.getParameter("book_id"));
+		String book_kind=request.getParameter("book_kind");
+		%>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../etc/script.js"></script>
+		<title>delete book information</title>
+	</head>
+	<body>
+		<p>delete</p>
+		<br>
+		<form method="post" name="delForm" 
+			action="bookDeletePro.jsp?book_id=<%=book_id%>&book_kind=<%=book_kind%>"
+			onsubmit="return deleteSave()">
+			<table>
+				<tr>
+					<td align="right">
+						<a href="../managerMain.jsp">back to managerMain</a>
+						&nbsp;
+						<a href="bookList.jsp?book_kind=<%=book_kind%>">go to bookList</a>
+					</td>
+				</tr>
+				
+				<tr height="30">
+					<td align="center">
+						<input type="submit" value="delete">
+					</td>
+				</tr>
+			</table>			
+		</form>
+	</body>
+</html>		
+		<%
+	}
+}catch(Exception e){
+	e.printStackTrace();
+}
+%>

@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charser=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="ch14.bookshop.master.*" %>
+<%@ include file="../../etc/color.jspf" %>
+
+<%
+String managerId="";
+try{
+	managerId=(String)session.getAttribute("managerId");
+	if(managerId=="" || managerId.equals(""))
+		response.sendRedirect("../logon/managerLoginForm.jsp");
+	else{
+		int book_id=Integer.parseInt(request.getParameter("book_id"));
+		String book_kind=request.getParameter("book_kind");
+		try{
+			
+		}catch(Exception e){
+			
+		}
+		%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+	</body>
+</html>
+		<%
+	}
+}catch(Exception e){
+	e.printStackTrace();
+}
+%>

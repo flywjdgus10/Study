@@ -35,12 +35,10 @@ ALTER Table cart MODIFY Column book_image VARCHAR(16) DEFAULT 'nothing.jpg'
 SHOW COLUMNS FROM book LIKE 're_date'
 
 */
+SHOW TABLES
+SELECT * FROM book
+INSERT INTO manager VALUES('flywjdgus10','wjd1470');
 
-SHOW COLUMNS FROM book LIKE 're_date'
-
-ALTER TABLE book CHANGE re_date reg_date DATETIME NOT NULL;
-
-DESC book
 
 
 

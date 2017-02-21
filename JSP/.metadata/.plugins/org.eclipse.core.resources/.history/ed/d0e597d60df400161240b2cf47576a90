@@ -1,0 +1,209 @@
+<%@ page language="java" contentType="text/html; charser=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="ch14.bookshop.master.*" %>
+<%@ include file="../../etc/color.jspf" %>
+
+<%
+String managerId="";
+try{
+	managerId=(String)session.getAttribute("managerId");
+	if(managerId=="" || managerId.equals(""))
+		response.sendRedirect("../logon/managerLoginForm.jsp");
+	else{
+		int book_id=Integer.parseInt(request.getParameter("book_id"));
+		String book_kind=request.getParameter("book_kind");
+		try{
+			ShopBookDBBean bookProcess=ShopBookDBBean.getInstance();
+			ShopBookDataBean book = bookProcess.getBook(book_id);
+		%>
+		
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link href="../../etc/style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../../etc/script.js"></script>
+		<title>modify book information</title>
+	</head>
+	<body>
+		<p>modify book information</p>
+		<br>
+		
+		<form method="post" name="writeform" action="bookUpdatePro.jsp" enctype="multipart/form-data">
+			<table>
+				<tr>
+					<td align="right" colspan="2">
+						<a href="../managerMain.jsp">back to managerMain</a>
+						&nbsp;
+						<a href="bookList.jsp?book_kind=<%=book_kind%>">go to bookList</a>
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="100">select categorize</td>
+					<td width="400" align="left">
+						<select name="book_kind">
+							<option value="100" <%if(book.getBook_kind().equals("100")){%>selected<%}%>>
+								literature</option>
+							<option value="200" <%if(book.getBook_kind().equals("200")){%>selected<%}%>>
+								foreign language</option>
+							<option value="300" <%if(book.getBook_kind().equals("300")){%>selected<%}%>>
+								computer</option>	
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="100">title</td>
+					<td width="400" align="left">
+						<input type="text" size="50" maxlength="50" 
+							name="book_title" value="<%=book.getBook_title()%>">
+						<input type="hidden" name="book_id" value="<%=book_id%>">
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="100">price</td>
+					<td width="400" align="left">
+						<input type="text" size="10" maxlength="9" 
+							name="book_price" value="<%=book.getBook_price()%>">won
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="100">count</td>
+					<td width="400" align="left">
+						<input type="text" size="10" maxlength="5"
+							name="book_count" value="<%=book.getBook_count()%>">books
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="100">author</td>
+					<td width="400" align="left">
+						<input type="text" size="10" maxlength="5"
+							name="author" value="<%=book.getAuthor()%>">
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="100">publishing_com</td>
+					<td width="400" align="left">
+						<input type="text" size="20" maxlength="30"
+							name="publishing_com" value="<%=book.getPublishing_com()%>">
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="100">publishing_date</td>
+					<td width="400" align="left">
+						<select name="publishing_year">
+							<%
+							Timestamp nowTime = new Timestamp(System.currentTimeMillis());
+							int lastYear=Integer.parseInt(nowTime.toString().substring(0,4));
+							for(int i=lastYear;i>=2010;i++){
+								%>
+								<option value="<%=i%>" 
+									<%if(Integer.parseInt(book.getPublishing_date().substring(0,4))==i)
+										{%>selected<%} %>><%=i %></option>
+								<%
+							}
+							%>
+						</select>year
+						
+						<select name="publishing_month">
+							<%
+							for(int i=1;i<=12;i++){
+								%>
+								<option value="<%=i%>" 
+									<%if(Integer.parseInt(book.getPublishing_date().substring(5,7)==i)
+										{%>selected<%}%>><%=i %></option>
+								
+								<%
+							}
+							%>
+						</select>month
+						
+						<select name="publishing_day">
+							<%
+							for(int i=1;i<=31;i++){
+								%>
+								<option value="<%=i%>" 
+									<%if(Integer.parseInt(book.getPublishing_date().substring(8)==i)
+										{%>selected<%}%>><%=i %></option>
+								
+								<%
+							}
+							%>
+						
+						</select>day
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="100">image</td>
+					<td width="400" align="left">
+						<input type="file" name="book_image"><%=book.getBook_image() %>
+					</td>					
+				</tr>
+				
+				
+				<tr>
+					<td width="100">content</td>
+					<td width="400" align="left">
+						<textarea name="book_content" rows="13" cols="40">
+							<%=book.getBook_content() %>
+						</textarea>
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td width="100">discount_rate</td>
+					<td width="400" align="left">
+						<input type="text" size="5" maxlength="5" name="discount_rate"
+							value="<%=book.getDiscount_rate()%>">
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" align="center">
+						<input type="button" value="modify" 
+							onclick="updateCheckForm(this.form)">
+						<input type="reset" value="reset">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>
+		<%	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		%>
+		<%
+	}
+}catch(Exception e){
+	e.printStackTrace();
+}
+%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

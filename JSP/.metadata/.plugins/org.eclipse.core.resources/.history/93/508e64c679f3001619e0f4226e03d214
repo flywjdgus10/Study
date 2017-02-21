@@ -1,0 +1,72 @@
+<%@ page language="java" contentType="text/html; charser=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../etc/color.jspf" %>
+<%
+String managerId = "";
+try{
+	managerId  = (String)session.getAttribute("managerId");
+	managerId = "123";
+	if(managerId == null || managerId.equals(""))
+		response.sendRedirect("logon/managerLoginForm.jsp");
+	else{
+}
+ %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<title>Book Management</title>
+	</head>
+	<body>
+		<form method="post" action="logon/managerLogout.jsp">
+			<b>manage working...</b>
+			<input type="submit" value="Logout">
+		</form>
+		<table>
+			<tr>
+				<td align="center" bgcolor="<%=bar%>">
+					operation of product
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="productProcess/bookRegisterForm.jsp">register product</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="productProcess/bookList.jsp?book_kind=all">modify/delete product</a>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+		<table>
+			<tr>
+				<td align="center" bgcolor="<%=bar%>">
+					operation of sold product
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="orderedProduct/orderedList.jsp">check the purchase list</a>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
+<%
+}catch(Exception e){
+	e.printStackTrace();
+}
+%>
+
+
+
+
+
+
+
